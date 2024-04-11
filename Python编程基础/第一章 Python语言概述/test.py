@@ -11,3 +11,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+    #定义一个字典，并输出其中一个键值对
+    dict = {'name': '姜美恒', 'age': 20}
+    print(dict['name'])
+    print(dict.keys())
