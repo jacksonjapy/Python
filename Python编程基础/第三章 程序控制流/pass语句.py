@@ -1,0 +1,6 @@
+if __name__ == '__main__':
+    for a in range(1, 51):
+        if a / 7 == 0 or a % 10 == 7:
+            pass
+        else:
+            print(a, end=" ")
