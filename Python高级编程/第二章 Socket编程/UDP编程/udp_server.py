@@ -2,7 +2,9 @@ import socket
 
 if __name__ == '__main__':
     # 创建套接字对象
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # 默认使用IPv4和TCP协议进行通信，此处指定使用IPv4和UDP协议进行通信。
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # 默认使用IPv4和TCP协议进行通信，此处指定使用IPv4和UDP协议进行通信。
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
     # 绑定地址
     server_address = ("127.0.0.1", 9999)
     sock.bind(server_address)  # 绑定地址，指定本机的IP地址和端口号。
@@ -20,3 +22,4 @@ if __name__ == '__main__':
             break
     # 关闭套接字
     sock.close()
+
