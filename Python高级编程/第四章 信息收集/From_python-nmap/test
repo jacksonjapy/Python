@@ -1,0 +1,25 @@
+{'nmap':
+         {'command_line':
+              'nmap -oX - -p 1-500 -sS -O 127.0.0.1',
+          'scaninfo':
+              {'tcp': {'method': 'syn', 'services': '1-500'}},
+          'scanstats':
+              {'timestr': 'Mon Apr 15 18: 28: 55 2024', 'elapsed': '1.63', 'uphosts': '1', 'downhosts': '0',
+               'totalhosts': '1'}
+          },
+     'scan': {
+         '127.0.0.1':
+             {'hostnames':
+                  [{'name': 'localhost', 'type': 'PTR'}],
+              'addresses':
+                  {'ipv4': '127.0.0.1'}, 'vendor': {},
+              'status':
+                  {'state': 'up', 'reason': 'localhost-response'}, 'portused':
+                  [
+                      {'state': 'closed', 'proto': 'tcp', 'portid': '1'},
+                      {'state': 'closed', 'proto': 'udp', 'portid': '38219'}
+                  ],
+              'osmatch': []
+              }
+     }
+     }
