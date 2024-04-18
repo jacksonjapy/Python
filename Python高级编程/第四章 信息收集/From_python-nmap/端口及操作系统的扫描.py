@@ -12,12 +12,12 @@ if __name__ == '__main__':
         # 判断主机是否有开放的端口和提取操作系统信息
         if "osmatch" in nm[ip]:
             os_info = nm[ip]["osmatch"]
-            if os_info == []:
+            if not os_info:
                 print("未知操作系统")
             elif "name" in os_info[0]:
                 os_info = os_info[0]["name"]
             if len(nm[ip].all_tcp()):
-                print("主机IP地址：", f"\033[1;32m{ip}\033[0m")
+                print(f"主机IP地址：\033[1;32m{ip}\033[0m")
                 for port in nm[ip].all_tcp():
                     print(port, nm[ip]["tcp"][port]["state"],
                           nm[ip]["tcp"][port]["name"],
