@@ -14,7 +14,7 @@ def print_result(host, result):
                   port_info["state"],
                   port_info["product"],
                   port_info["version"])
-            print("-"*20)
+        print("-"*20)
     else:
         print(host, "主机不在线")
 
