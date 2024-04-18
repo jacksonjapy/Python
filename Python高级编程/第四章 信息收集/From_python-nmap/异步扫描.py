@@ -9,6 +9,7 @@ def print_result(host, result):
     print(host, "在线")
     # 提取扫描结果
     if "tcp" in result["scan"][host]:
+        print("结果：")
         for port, port_info in result['scan'][host]['tcp'].items():
             print(port,
                   port_info["state"],
