@@ -5,6 +5,8 @@ from json import loads
 from time import sleep
 
 save_path, filesize, savesize = ["", 0, 0]
+
+
 # 接收文件
 def server_recv(ConnectionObject):
     '''
