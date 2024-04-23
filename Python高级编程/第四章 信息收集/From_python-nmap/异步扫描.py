@@ -49,7 +49,7 @@ def check_ip(ip):
 
     if len(check_list) == 4:
         pass
-    else:
+    elif int(check_list[3]) < 1 or int(check_list[3]) > 255:
         print("请输入正确的IPv4地址")
 
 
