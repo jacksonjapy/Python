@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Python编程基础/第六章 函数设计与实现/自定义模块/不同级目录" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="python3.8" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="python3.10" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

@@ -18,19 +18,21 @@ def generate_password():
             lower_char = combinations(ascii_lowercase, 1)
             special_characters = combinations(punctuation, 1)
             other_char = combinations(ascii_lowercase + digits + punctuation, password_length - 3)
-            lines = 100
+            lines = 0
 
             with open("password.txt", "a+") as file:
                 for digit in digit_char:    # 选取数字
                     for lower in lower_char:    # 选取英文小写字母
                         for special in special_characters:
                             for other in other_char:    # 选取其他字符
-                                while lines != 0:
+                                if lines <= 10:
                                     password = list(digit + lower + special + other)
                                     # 打乱密码顺序
                                     shuffle(password)
                                     file.write("".join(password) + "\n")
                                     lines += 1
+                                else:
+                                    break
             print("字典生成成功")
             break
 
