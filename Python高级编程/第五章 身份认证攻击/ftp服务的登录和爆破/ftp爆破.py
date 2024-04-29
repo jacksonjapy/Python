@@ -47,7 +47,4 @@ if __name__ == '__main__':
     except ftplib.error_perm:
         print("Operation failed!")
     # 关闭连接
-<<<<<<< HEAD
     ftp.close()
-=======
->>>>>>> 96c5b6002bee8ac5a9842aeb40e484e5824e4ea3
