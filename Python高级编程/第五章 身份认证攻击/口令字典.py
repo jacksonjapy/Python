@@ -25,7 +25,7 @@ def generate_password():
                     for lower in lower_char:    # 选取英文小写字母
                         for special in special_characters:
                             for other in other_char:    # 选取其他字符
-                                if lines <= 10:
+                                if lines <= 100:
                                     password = list(digit + lower + special + other)
                                     # 打乱密码顺序
                                     shuffle(password)
