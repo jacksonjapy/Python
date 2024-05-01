@@ -1,9 +1,9 @@
 import socket
-import ftplib
+from ftplib import FTP, error_perm
 
 if __name__ == '__main__':
     # 创建ftp对象
-    ftp = ftplib.FTP()
+    ftp = FTP()
     # 与服务器建立连接
     server = ["192.168.80.4", 21]
     reply = ftp.connect(server[0], server[1])
@@ -26,7 +26,7 @@ if __name__ == '__main__':
                 break
             else:
                 print("Login failed!")
-        except ftplib.error_perm:
+        except error_perm:
             print("Login failed, username or password mistake!")
 
     # ftp操作
@@ -46,7 +46,7 @@ if __name__ == '__main__':
             elif cmd == "quit":
                 ftp.quit()
                 break
-    except ftplib.error_perm:
+    except error_perm:
         print("Operation failed!")
     # 关闭连接
     ftp.close()
