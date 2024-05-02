@@ -29,10 +29,18 @@ class FtpBruteForce:
 
     @staticmethod
     def error_message(message):
+        """
+        :param message: 要显示的信息（String类型）
+        :return:
+        """
         print(f"\033[1;31m{message}\033[0m")  # 将报错消息标记为红色字体
 
     @staticmethod
     def stop(max_num):  # 当尝试次数达到一定值时，休眠5秒
+        """
+        :param max_num: 已经尝试的次数
+        :return:
+        """
         if max_num % 5 == 0:
             sleep(5)
 
@@ -41,6 +49,10 @@ class FtpBruteForce:
             super().__init__(message)
 
     def reconnect(self, connection=False):
+        """
+        :param connection: 是否需要重连，默认为False，True则重连
+        :return:
+        """
         try:
             # 尝试发送一个简单的FTP命令来检查连接是否仍然有效
             self.ftp.voidcmd("NOOP")
@@ -120,8 +132,6 @@ class FtpBruteForce:
         :param password_tuples: 密码字典元组
         :return: 无返回值
         """
-        error_login = []
-
         if user_dict_tuples is None or password_tuples is None:
             raise ValueError("用户名字典或密码字典为空，请先调用load_dict方法加载用户名和密码字典")
         else:
@@ -199,6 +209,11 @@ class MultiThreadedLogin(FtpBruteForce):
             thread.start()
 
     def login_threaded(self, user, passwords_queue):
+        """
+        :param user: 字符串类型的用户名序列
+        :param passwords_queue: 包含待尝试密码的序列
+        :return: 无返回值
+        """
         while not passwords_queue.empty():
             password = passwords_queue.get()
             self.login(user, password)
