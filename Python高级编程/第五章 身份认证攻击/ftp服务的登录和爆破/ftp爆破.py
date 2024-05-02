@@ -1,7 +1,4 @@
-"""
-By Jackson Ja
-"""
-from ftp_brute_force import FtpBruteForce
+from ftp_brute_force import FtpBruteForce, MultiThreadedLogin
 
 if __name__ == '__main__':
     server_address = input("请输入服务器地址：")
