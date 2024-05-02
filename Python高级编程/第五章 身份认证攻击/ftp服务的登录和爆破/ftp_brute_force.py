@@ -19,7 +19,7 @@ class FtpBruteForce:
         :param server_address: FTP服务器IPv4地址
         :param user_dict_path: 用户名字典路径
         :param password_dict_path: 密码字典路径
-        :param server_port: 如果不指定FTP服务器端口则默认FTP服务器端口为21。
+        :param server_port: FTP服务器端口,默认为21。
         """
         self.ftp = FTP()  # 创建FTP对象
         self.server_address = server_address
