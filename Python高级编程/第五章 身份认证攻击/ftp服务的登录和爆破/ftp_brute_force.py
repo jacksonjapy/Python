@@ -1,6 +1,6 @@
 from ftplib import FTP, error_perm
 from socket import timeout
-from time import sleep, strftime
+from time import sleep
 from os import path
 from threading import Thread
 from queue import Queue
