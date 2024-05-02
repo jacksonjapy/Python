@@ -31,7 +31,6 @@ class FtpBruteForce:
     def error_message(message):
         """
         :param message: 要显示的信息（String类型）
-        :return:
         """
         print(f"\033[1;31m{message}\033[0m")  # 将报错消息标记为红色字体
 
@@ -39,7 +38,6 @@ class FtpBruteForce:
     def stop(max_num):  # 当尝试次数达到一定值时，休眠5秒
         """
         :param max_num: 已经尝试的次数
-        :return:
         """
         if max_num % 5 == 0:
             sleep(5)
@@ -51,7 +49,6 @@ class FtpBruteForce:
     def reconnect(self, connection=False):
         """
         :param connection: 是否需要重连，默认为False，True则重连
-        :return:
         """
         try:
             # 尝试发送一个简单的FTP命令来检查连接是否仍然有效
