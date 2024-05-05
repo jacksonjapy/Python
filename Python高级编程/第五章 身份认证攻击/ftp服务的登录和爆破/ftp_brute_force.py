@@ -168,7 +168,7 @@ class FtpBruteForce:
                             else:
                                 self.reconnect()  # 重连
                                 continue  # 继续尝试登录
-                        except EOFError:
+                        except (EOFError, ConnectionResetError):
                             self.reconnect()
                             continue
                     # 如果到达这里，说明已找到有效的登录信息，退出程序
