@@ -1,5 +1,3 @@
-import time
-
 from paramiko import SSHClient, AutoAddPolicy
 from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError,SSHException
 
@@ -27,5 +25,3 @@ if __name__ == '__main__':
             print(stdout.read().decode())
             break
     ssh_client.close()  # 关闭连接
-    print(" ")
-    del ssh_client
