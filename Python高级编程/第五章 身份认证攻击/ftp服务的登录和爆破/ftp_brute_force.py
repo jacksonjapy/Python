@@ -122,6 +122,7 @@ class FtpBruteForce:
             self.error_message("用户名字典或密码字典为空，请先调用load_dict方法加载用户名和密码字典")
         else:
             while True:
+                mode = None
                 # 爆破模式选择
                 try:
                     mode = int(input("请输入登录模式（1.尝试字典中所有用户名和字典 2.爆破单个 0.退出）："))
