@@ -1,11 +1,15 @@
-import socket
+# -*- coding: utf-8 -*-
+# -*- python3 -*-
+# This program must be enabled on Python versions greater than or equal to 3.10
+
+from socket import timeout
 from ftplib import FTP, error_perm
 
 if __name__ == '__main__':
     # 创建ftp对象
     ftp = FTP()
     # 与服务器建立连接
-    server = ["192.168.80.4", 21]
+    server = ("192.168.80.4", 21)
     reply = ftp.connect(server[0], server[1])
     try:
         if "220" in reply:
@@ -13,13 +17,13 @@ if __name__ == '__main__':
         else:
             print("Connection failed!")
             exit()
-    except (socket.timeout, ConnectionRefusedError):
+    except (timeout, ConnectionRefusedError):
         print("Connection failed, server not found or ftp server not running!")
-        exit()
+        exit(0)
     # 登录
     while True:
         try:
-            user = tuple(map(str, input("please input username and password:")))
+            user = tuple(map(str, input("please input username and password:").split()))
             user_reply = ftp.login(user[0], user[1])
             if "230" in user_reply:
                 print("Login success!")
@@ -30,23 +34,29 @@ if __name__ == '__main__':
             print("Login failed, username or password mistake!")
 
     # ftp操作
-    try:
-        while True:
-            cmd = input(">>>")
-            if cmd == "ls":
+    print("Supported operations:[ls, pwd, cd, get, put, bye(exit the program)]")
+    while True:
+        cmd = input(">>>")
+        match cmd:
+            case "ls":
                 ftp.retrlines("LIST")
-            elif cmd == "pwd":
+            case "pwd":
                 ftp.pwd()
-            elif cmd == "cd":
-                ftp.cwd(input(">>>"))
-            elif cmd == "get":
-                ftp.retrbinary("RETR " + input(">>>"), open(input(">>>"), "wb").write)
-            elif cmd == "put":
-                ftp.storbinary("STOR " + input(">>>"), open(input(">>>"), "rb"))
-            elif cmd == "quit":
+            case "cd":
+                path = cmd.split()
+                if len(path) == 2:
+                    ftp.cwd(path[1])
+                else:
+                    print("Please input a path or path mistake!")
+            case "get":
+                filename = input("Please input filename to get: ")
+                ftp.retrbinary("RETR " + filename, open(filename, "wb").write)
+            case "put":
+                filename = input("Please input filename to put: ")
+                ftp.storbinary("STOR " + filename, open(filename, "rb"))
+            case "bye":
                 ftp.quit()
-                break
-    except error_perm:
-        print("Operation failed!")
-    # 关闭连接
-    ftp.close()
+                ftp.close()
+                exit(0)
+            case _:
+                print("Operation failed!")
