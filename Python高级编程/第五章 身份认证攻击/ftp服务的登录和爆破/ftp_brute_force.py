@@ -68,7 +68,6 @@ class FtpBruteForce:
         password_set = set()  # 密码集合
         # 判断字典文件是否存在，存在则继续导入字典
         if path.exists(self.user_dict_path) and path.exists(self.password_dict_path):
-            # try:
             # 导入用户名字典
             with open(self.user_dict_path, "r") as user_file:
                 for user in user_file:
