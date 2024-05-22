@@ -1,5 +1,5 @@
 from paramiko import SSHClient, AutoAddPolicy
-from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError, SSHException
+from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError
 from ftp_brute_force import FtpBruteForce
 
 if __name__ == '__main__':
