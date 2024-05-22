@@ -2,8 +2,6 @@ from paramiko import SSHClient, AutoAddPolicy
 from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError, SSHException
 from ftp_brute_force import FtpBruteForce
 
-
-
 if __name__ == '__main__':
     server_address: str = input("请输入服务器地址：")
     server_port: int = 22
