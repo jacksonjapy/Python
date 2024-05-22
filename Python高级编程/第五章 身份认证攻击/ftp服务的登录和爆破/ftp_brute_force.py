@@ -118,6 +118,7 @@ class FtpBruteForce:
 
         if len(user_dict_tuples) == 0 or len(password_tuples) == 0:
             self.error_message("用户名字典或密码字典为空，请先调用load_dict方法加载用户名和密码字典")
+            exit(1)
         else:
             while True:
                 mode = None
