@@ -1,5 +1,6 @@
 from paramiko import SSHClient, AutoAddPolicy
 from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError, SSHException
+from ftp_brute_force import FtpBruteForce
 
 
 def error_message(message):
@@ -29,11 +30,11 @@ if __name__ == '__main__':
                                        port=server_port,
                                        banner_timeout=1)
                 except TimeoutError:
-                    error_message("连接超时或服务器不在线")
+                    FtpBruteForce.error_message("连接超时或服务器不在线")
                 except NoValidConnectionsError:
-                    error_message("服务器在线，但服务未运行")
+                    FtpBruteForce.error_message("服务器在线，但服务未运行")
                 except AuthenticationException:
-                    error_message(f"{username} {password} 登录失败")
+                    FtpBruteForce.error_message(f"{username} {password} 登录失败")
                 except Exception:
                     pass
                 else:
