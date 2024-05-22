@@ -18,7 +18,7 @@ if __name__ == '__main__':
                 password = password.strip()
                 try:
                     ssh_client.connect(username=username, password=password, hostname=server_address,
-                                       port=server_port,
+                                       port=int(server_port),
                                        banner_timeout=1)
                 except TimeoutError:
                     FtpBruteForce.error_message("连接超时或服务器不在线")

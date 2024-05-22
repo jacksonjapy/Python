@@ -1,15 +1,16 @@
 from paramiko import SSHClient, AutoAddPolicy
-from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError,SSHException
+from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsError, SSHException
 
 if __name__ == '__main__':
     server_address: str = "192.168.80.4"
     server_port: int = 22
     ssh_client = SSHClient()
-    ssh_client.set_missing_host_key_policy(AutoAddPolicy)   # 允许连接不在know_hosts文件中的主机
+    ssh_client.set_missing_host_key_policy(AutoAddPolicy)  # 允许连接不在know_hosts文件中的主机
     while True:
-        username, password = input("请输入用户名和密码，用英文分号分隔：").split(";")
+        username, password = input("请输入用户名和密码，用空格分隔：").split()
         try:
-            ssh_client.connect(username=username, password=password, hostname=server_address, port=server_port,banner_timeout=1)
+            ssh_client.connect(username=username, password=password, hostname=server_address, port=server_port,
+                               banner_timeout=1)
         except TimeoutError:
             print("连接超时或服务器不在线")
         except NoValidConnectionsError:
