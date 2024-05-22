@@ -3,8 +3,7 @@ from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsEr
 from ftp_brute_force import FtpBruteForce
 
 if __name__ == '__main__':
-    server_address: str = input("请输入服务器地址：")
-    server_port: int = 22
+    server_address, server_port = input("请输入服务器地址和端口号（用空格隔开）：").split()
     ssh_client = SSHClient()
     ssh_client.set_missing_host_key_policy(AutoAddPolicy)  # 允许连接不在know_hosts文件中的主机
     success_dict = dict()
