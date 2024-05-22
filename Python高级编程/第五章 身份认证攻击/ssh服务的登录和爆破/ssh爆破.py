@@ -3,12 +3,6 @@ from paramiko.ssh_exception import AuthenticationException, NoValidConnectionsEr
 from ftp_brute_force import FtpBruteForce
 
 
-def error_message(message):
-    """
-    :param message: 要显示的信息（String类型）
-    """
-    print(f"\033[1;31m{message}\033[0m")  # 将报错消息标记为红色字体
-
 
 if __name__ == '__main__':
     server_address: str = input("请输入服务器地址：")
