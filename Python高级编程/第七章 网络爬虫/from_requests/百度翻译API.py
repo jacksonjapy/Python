@@ -60,7 +60,7 @@ params = {
     'to': to_lang,
     'appid': APPID,
     # 注意：百度翻译免费接口可能不需要salt字段，或者salt字段的用途与VIP接口不同
-    'salt': int(time.time()),  # 如果API文档说明需要这个字段，则取消注释并可能需要进行其他处理
+    # 'salt': int(time.time()),  # 如果API文档说明需要这个字段，则取消注释并可能需要进行其他处理
     'sign': sign,
 }
 
