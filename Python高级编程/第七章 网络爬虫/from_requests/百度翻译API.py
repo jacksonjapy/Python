@@ -3,7 +3,7 @@ import hashlib
 import base64
 import time
 
-# 你的百度翻译API密钥
+# 百度翻译API密钥
 APPID = '20240521002057705'
 API_KEY = 'Qeuuz_a8f00jvOTricB8'
 
