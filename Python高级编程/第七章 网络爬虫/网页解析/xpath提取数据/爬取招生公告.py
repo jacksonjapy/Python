@@ -15,14 +15,16 @@ if __name__ == '__main__':
     url = "https://zjc.scitc.com.cn/pagelist-6154.html"
     response = request_page(url)
     if not response:
+        print("请求失败")
         exit(1)
 
     html_element = html.fromstring(response)
     max_page = "//span[@class='default_pgTotalPage']/text()"
     if max_page:
         max_page = int(html_element.xpath(max_page)[0])
+
     for i in range(1, max_page + 1):
-        print(f"正在爬取第{i}页")
+        print(f"正在爬取第{i}页") 
         if i >= 2:  # 跳过第一页
             url += f"?pageye={i}"
             re = request_page(url)
