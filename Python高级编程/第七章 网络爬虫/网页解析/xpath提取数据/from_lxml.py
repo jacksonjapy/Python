@@ -6,13 +6,13 @@ if __name__ == '__main__':
         html_content = f.read()
     html_element = html.fromstring(html_content)    # 将字符串转换为Element(HTML)对象
 
-    useful = html_element.xpath("//div[@class='useful']/ul/li[@class='info']/text()")
-    useless = html_element.xpath("//div[@class='useless']/ul/li[@class='info']/text()")
-    title_information = html_element.xpath("/html/head/title/text()")  # 绝对路径
     # 1.提取标题
+    title_information = html_element.xpath("/html/head/title/text()")  # 绝对路径
     print(title_information[0])
     print("-" * 11)
     # 2.提取有用和无用的信息
+    useful = html_element.xpath("//div[@class='useful']/ul/li[@class='info']/text()")
+    useless = html_element.xpath("//div[@class='useless']/ul/li[@class='info']/text()")
     for sure in useful:
         print(sure)
     print("-" * 11)
@@ -23,22 +23,12 @@ if __name__ == '__main__':
         print(yes)
     print("-" * 11)
     # 4.提取id属性为"testfault", "test-1", "test-2"的信息
-    fault_informations = (html_element.xpath("//div[@id='testfault']/text()"),
-    html_element.xpath("//div[@id='test-1']/text()"),
-    html_element.xpath("//div[@id='test-2']/text()"))
+    fault_informations = html_element.xpath("//div[position() >= 3 and position() <= 5]/text()")
     for fault in fault_informations:
-        print(fault[0])
+        print(fault)
+    print("-" * 11)
     # 5.
-    div = html_element.xpath("//div[@id='test3']/text()")
-    span = html_element.xpath("//span[@id='tiger']/text()")
-    ul = html_element.xpath("//span[@id='tiger']/ul/text()")
-    li = html_element.xpath("//span[@id='tiger']/ul/li/text()")
-    long = str(div[0]).strip()
-    hu = str(span[0]).strip()
-    zhu = str(ul[0]).strip()
-    wu = str(li[0]).strip()
-    tou = str(div[1]).strip()
-    cow = str(span[1]).strip()
-    animal = (long, hu, zhu, wu, cow, tou)
-    for j in animal:
-        print(j, end="")
+    html_element = html_element.xpath("//div[@id='test3']")[0]
+    animal = html_element.xpath("string(.)")
+    animal = str(animal).replace("\n", "").replace("\t", "")
+    print(animal)
