@@ -39,7 +39,7 @@ if __name__ == '__main__':
         title_dict[str(i)] = title
         url_dict[str(i)] = title_url
 
-    with open("data.txt", "w", encoding="utf-8") as f:
+    with open("result.txt", "a+", encoding="utf-8") as f:
         for i in range(1, max_page + 1):
             for j in range(len(title_dict[str(i)])):
                 if "http" not in url_dict[str(i)][j]:
