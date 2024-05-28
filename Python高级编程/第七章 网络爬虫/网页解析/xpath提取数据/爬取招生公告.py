@@ -24,7 +24,7 @@ if __name__ == '__main__':
         max_page = int(html_element.xpath(max_page)[0])
 
     for i in range(1, max_page + 1):
-        print(f"正在爬取第{i}页") 
+        print(f"正在爬取第{i}页")
         if i >= 2:  # 跳过第一页
             url += f"?pageye={i}"
             re = request_page(url)
