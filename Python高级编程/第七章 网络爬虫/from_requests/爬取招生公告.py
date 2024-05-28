@@ -29,7 +29,6 @@ if __name__ == '__main__':
             if not re:
                 exit(1)
             html_element = html.fromstring(re)
-
-    title = html_element.xpath("//div[2]/div[2]/div[2]/ul/li[1]/a/h5/text()")
-    title_url = html_element.xpath("//div[2]/div[2]/div[2]/ul/li/a/@href")
-    print(title, "\n", title_url)
+        title = html_element.xpath("//div[2]/div[2]/div[2]/ul/li[1]/a/h5/text()")
+        title_url = html_element.xpath("//div[2]/div[2]/div[2]/ul/li/a/@href")
+        print(title, "\n", title_url)
