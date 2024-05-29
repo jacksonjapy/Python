@@ -23,7 +23,7 @@ if __name__ == '__main__':
     # 登录
     while True:
         try:
-            user = tuple(map(str, input("please input username and password:").split()))
+            user = tuple(input("please input username and password:").split())
             user_reply = ftp.login(user[0], user[1])
             if "230" in user_reply:
                 print("Login success!")
