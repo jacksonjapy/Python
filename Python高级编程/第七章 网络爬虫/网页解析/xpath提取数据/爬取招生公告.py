@@ -31,6 +31,7 @@ if __name__ == '__main__':
             url = f"https://zjc.scitc.com.cn/pagelist-6154.html?pageye={i}&pageSize=3"
             re = request_page(url)
             if not re:
+                print("请求失败")
                 exit(1)
             html_element = html.fromstring(re)
 
