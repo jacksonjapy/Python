@@ -1,5 +1,6 @@
 from requests import get
 from lxml import html
+from csv import DictWriter
 
 
 def request_page(page_url):
@@ -19,31 +20,41 @@ if __name__ == '__main__':
         print("请求失败")
         exit(1)
 
-    html_element = html.fromstring(response)
+    html_element = html.fromstring(response)  # 将结果转换为HTML对象
     max_page = "//span[@class='default_pgTotalPage']/text()"
     if max_page:
-        max_page = int(html_element.xpath(max_page)[0])
-    title_dict = dict()
-    url_dict = dict()
+        max_page = int(html_element.xpath(max_page)[0])  # 获取最大页数
+    else:
+        print("获取最大页数失败")
+        exit(1)
+
     for i in range(1, max_page + 1):
         print(f"正在爬取第{i}页")
         if i >= 2:  # 跳过第一页
-            url = f"https://zjc.scitc.com.cn/pagelist-6154.html?pageye={i}&pageSize=3"
+            url = f"https://zjc.scitc.com.cn/pagelist-6154.html?pageye={i}"  # &pageSize=3
             re = request_page(url)
             if not re:
                 print("请求失败")
                 exit(1)
-            html_element = html.fromstring(re)
+            html_element = html.fromstring(re)  # 将结果转换为HTML对象
 
         title = html_element.xpath("//div[2]/div[2]/div[2]/ul/li/a/h5/text()")
         title_url = html_element.xpath("//div[2]/div[2]/div[2]/ul/li/a/@href")
-        title_dict[str(i)] = title
-        url_dict[str(i)] = title_url
 
-    with open("result.txt", "a+", encoding="utf-8") as f:
-        for i in range(1, max_page + 1):
-            for j in range(len(title_dict[str(i)])):
-                if "http" not in url_dict[str(i)][j]:
-                    f.write(f"{title_dict[str(i)][j]} {main_url + url_dict[str(i)][j]}\n")
+        if len(title) == len(title_url):
+            pass
+        else:
+            print("获取标题和链接失败")
+            exit(1)
+
+        with open("result.csv", "a+", encoding="utf-8", newline="") as f:
+            writer = DictWriter(f, fieldnames=["title", "url"])
+            if i == 1:
+                writer.writeheader()
+
+            for index, name in enumerate(title):
+                if str(title_url[index]).startswith("http"):
+                    data = {"title": name, "url": title_url[index]}
                 else:
-                    f.write(f"{title_dict[str(i)][j]} {url_dict[str(i)][j]}\n")
+                    data = {"title": name, "url": main_url + title_url[index]}
+                writer.writerow(data)
