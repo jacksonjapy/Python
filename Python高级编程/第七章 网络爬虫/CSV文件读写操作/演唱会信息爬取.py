@@ -2,8 +2,8 @@ from csv import DictWriter
 from requests import Session
 
 if __name__ == '__main__':
-    url = "https://www.damai.cn/"
     current_page = 1
+    url = f"https://search.damai.cn/search.htm?spm=a2oeg.home.category.ditem_0.591b23e1bzdkIz&ctl=%E6%BC%94%E5%94%B1%E4%BC%9A&order={current_page}&cty="
     info = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36",
         "Cookie": "cna=m/rRHluqFE0CAT2d830d/9Tu; destCity=%u5168%u56FD; xlly_s=1; XSRF-TOKEN=dda8f4f3-eb8a-44ff-9ce6-f5fa0cfec34a; isg=BOjoR2q1Guwf9jZEXpLshGnUud_6EUwbbTzfbKIZNGNW_YhnSiEcq34_8ZUNVgTz; tfstk=fLbkrKbfDccQoBcLEZY7AFYCaBrANYTBp93ppepU0KJjygEWvpcHnOPW2usRmpXDh4I8VHpntKXrJ3QhO2AFT9NWp7ZAN_TB8ReTBPC5NhoJSHyv8W52udrOlPUON_8B8ReTWWMH5k-kLe-y4x-2hBOyT9-EgSAe9YoEz954iB92Lxej8dbFlZyk0TSHVxDcoQyBQ_vDGI_DZ3va5K0FwZAkqd5PPzasUCjGohIzauRM-K15k32iQe1Aj9jFe-geeGf2zKIz3V9VfL8RPeGE4nQATwLVM8ukEiW5Lnj7E4pyxaIH2GwifpKeth8emXuFi_plLIYZEVxAk67puserrLjVFw8R75nBGHSAPh_834YNf_LRYTej8LIGgEjrpmow2XuBgWQqADtyGIvsM5iE7f87-HP0icZW4IO8BSVmAj-yGIXUiSmsM3RXwn5..",
