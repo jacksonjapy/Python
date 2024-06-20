@@ -12,6 +12,9 @@ if __name__ == '__main__':
     fanyi_id = ""
     fanyi_pwd = ""
     user_name = "李玊"
+    with open("username", "w") as file1, open("password", "w") as file2:
+        fanyi_id += file1.read()
+        fanyi_pwd += file2.read()
 
         # WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.ID, "showlogintext")))
     if WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.CLASS_NAME, "lg-title"))):
