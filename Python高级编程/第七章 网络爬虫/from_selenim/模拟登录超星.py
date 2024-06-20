@@ -9,10 +9,10 @@ if __name__ == '__main__':
     driver = webdriver.Chrome()
     driver.get(target_url)
 
-    fanyi_id = ""
-    fanyi_pwd = ""
+    fanyi_id = str()
+    fanyi_pwd = str()
     user_name = "李玊"
-    with open("username", "w") as file1, open("password", "w") as file2:
+    with open("username", "r") as file1, open("password", "r") as file2:
         fanyi_id += file1.read()
         fanyi_pwd += file2.read()
 
@@ -37,14 +37,17 @@ if __name__ == '__main__':
         print(f"user:{user_name} Login failed!")
         exit(1)
 
-    error_msg = WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.CLASS_NAME, "err-tip"))).text
-    if error_msg == "手机号或密码错误":
-        print("Login failed!")
-        exit(1)
-    else:
-        print("Login failed!")
+    try:
+        if WebDriverWait(driver, 4).until(EC.presence_of_element_located((By.CLASS_NAME, "err-tip"))).text:
+            print("Login failed!")
+            exit(1)
+        else:
+            print("Login failed!")
+    except:
+        print("error")
 
     course_url = str(driver.find_element(By.ID, "zne_kc_icon").get_attribute("href"))
     print(course_url)
     course_url = search(r"[^']*?\)", course_url)
+    print(course_url)
     input("Press Enter to over...")
