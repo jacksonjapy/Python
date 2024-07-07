@@ -1,4 +1,0 @@
-"""
-Write By Jackson
-"""
-
