@@ -5,3 +5,6 @@
 /.git.bfg-report
 # 忽略.idea目录
 /.idea
+*.dic  
+*.txt  
+*.csv
