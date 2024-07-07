@@ -2,7 +2,7 @@
 /.git
 # 忽略build目录和__pycache__目录
 /build
-/__pycache__
+__pycache__/
 # 忽略 .git.bfg-report 目录
 /.git.bfg-report
 # 忽略.idea目录
