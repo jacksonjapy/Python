@@ -51,17 +51,17 @@ if __name__ == '__main__':
     ikun.walk()
     ikun.modify("李四")
 
-    yym = Person("叶银民", "男", 20)
-    yym.show_information()
-    yym.walk()
-    yym.show_count()  # 通过实例调用类中的方法
+    lh = Person("鹿晗", "男", 20)
+    lh.show_information()
+    lh.walk()
+    lh.show_count()  # 通过实例调用类中的方法
     Person.show_count()  # 通过类调用类中的方法
     Person.info_print()  # 通过类调用类中的静态方法
 # 自动调用了__del__方法
 # 手动删除对象
     del ikun
     Person.show_count()
-    del yym
+    del lh
 # 构造：创建
 # 析构：销毁(删除)
 """

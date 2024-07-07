@@ -29,7 +29,7 @@ class Person:
 
     def __del__(self):  # 默认的类销毁(删除)方法，可以自定义 (析构函数__del__)
         print(f'正在销毁(删除)一个{self.name}的方法！')
-    # 在类中，可以通过__self__来访问类中的属性。
+        # 在类中，可以通过__self__来访问类中的属性。
         Person.count -= 1
 
     # 定义类方法
@@ -47,6 +47,7 @@ class Student(Person):  # student继承与Person类
     """
     学生类
     """
+
     def study(self):
         print(f'{self.name}正在学习！')
 
