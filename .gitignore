@@ -1,12 +1,11 @@
-# 忽略 .git 目录
-/.git
-# 忽略build目录和__pycache__目录
-/build
-__pycache__/
+# 忽略 build 目录
+/build/
+# 忽略 .idea 目录
+/.idea/
 # 忽略 .git.bfg-report 目录
-/.git.bfg-report
-# 忽略.idea目录
-/.idea
-*.dic  
-*.txt  
+/.git.bfg-report/
+# 忽略 __pycache__ 目录
+/__pycache__/
+*.dic
+*.txt
 *.csv
