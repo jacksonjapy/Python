@@ -3,3 +3,5 @@
 
 # 忽略 .git.bfg-report 目录
 /.git.bfg-report
+# 忽略.idea目录
+/.idea
