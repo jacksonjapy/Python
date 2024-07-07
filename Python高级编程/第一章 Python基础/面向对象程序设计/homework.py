@@ -14,7 +14,8 @@ class Animal:
         print("moving...")
 
     # 自定义一个名为count_nums的类方法，用于统计动物的数量。
-    def count_nums(self):
+    @staticmethod
+    def count_nums():
         print(f"现有{Animal.count}个实例。")
 
     # 自定义一个名为info的静态方法，用于显示Animal类的作用。
