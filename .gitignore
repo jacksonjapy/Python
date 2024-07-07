@@ -1,0 +1,20 @@
+# 忽略 build 目录
+/build/
+**/build/
+# 忽略 .idea 目录
+/.idea/
+# 忽略 .git.bfg-report 目录
+/.git.bfg-report/
+# 忽略 __pycache__ 目录
+/__pycache__/
+**/__pycache__/
+/.pytest_cache/
+**/.pytest_cache/
+*.dic
+*.txt
+*.csv
+*.spec
+username
+password
+百度翻译API.py
+# .gitignore
