@@ -18,3 +18,172 @@ username
 password
 百度翻译API.py
 # .gitignore
+# ============================================
+# 通用文件
+# ============================================
+# 忽略操作系统生成的文件
+.DS_Store
+Thumbs.db
+
+# 忽略日志文件
+*.log
+
+# 忽略临时文件
+*.tmp
+*.temp
+*.swp
+*.bak
+*.backup
+
+# 忽略包管理器生成的依赖文件
+*.lock
+*.cache
+
+# 忽略密钥和配置文件
+*.key
+*.pem
+*.cer
+*.crt
+*.pfx
+*.config
+*.env
+*.secret
+*.credentials
+
+# ============================================
+# C/C++
+# ============================================
+# 忽略编译输出
+*.o
+*.obj
+*.exe
+*.dll
+*.out
+*.a
+*.so
+*.dylib
+
+# 忽略构建工具生成的文件
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+*.d
+*.dSYM/
+*.orig
+*.patch
+
+# ============================================
+# Python
+# ============================================
+# 忽略 Python 缓存文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 忽略虚拟环境
+env/
+venv/
+ENV/
+.venv/
+
+# 忽略 Python 开发工具生成的文件
+.pip/
+.python-version
+
+# 忽略测试结果
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py[cod]
+*.log
+coverage/
+.cache/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.egg
+*.egg-info/
+.installed.cfg
+*.dist-info/
+
+# 忽略 Jupyter Notebook 输出文件
+.ipynb_checkpoints
+
+# 忽略 PyInstaller 生成的文件
+*.spec
+dist/
+build/
+__pycache__/
+
+# 忽略 Pylint 生成的文件
+pylint-log.txt
+
+# 忽略 mypy 生成的文件
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ============================================
+# PHP
+# ============================================
+# 忽略 Composer 生成的文件
+/vendor/
+composer.lock
+
+# 忽略本地 PHP 配置文件
+.env
+*.env
+
+# ============================================
+# JetBrains IDE
+# ============================================
+# 忽略 IDE 项目配置文件
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# 忽略 IDE 缓存
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+# 忽略 IDE 的特定文件
+.idea/**/modules.xml
+.idea/**/misc.xml
+.idea/**/gradle.xml
+.idea/**/assetWizardSettings.xml
+
+# 忽略 IDE 的运行配置
+.idea/**/runConfigurations/
+.idea/**/html_awesome/
+.idea/**/project*.xml
+.idea/**/libraries/
+
+# 忽略 IDE 的代码风格文件
+.idea/**/codeStyles/
+.idea/**/codeStyleSettings.xml
+
+# 忽略 IDE 的 vcs 配置文件
+.idea/**/vcs.xml
+
+# ============================================
+# 构建工具
+# ============================================
+# 忽略构建工具生成的文件
+build/
+dist/
+tmp/
+temp/
+.cache/
+logs/
+
+# ============================================
+# 保留的文件
+# ============================================
+!.gitignore
+
