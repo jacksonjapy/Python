@@ -15,6 +15,7 @@
 *.csv
 *.spec
 username
+name
 password
 百度翻译API.py
 # .gitignore
