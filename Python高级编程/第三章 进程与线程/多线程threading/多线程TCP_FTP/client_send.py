@@ -62,21 +62,26 @@ if __name__ == '__main__':
     # 创建套接字对象
     sock = socket(AF_INET, SOCK_STREAM)
     # 与服务器建立连接
-    server_address = ('127.0.0.1', 9999)
-    sock.connect(server_address)
-    # 创建两个线程，分别执行发送文件和显示进度条任务
-    file_path = get_valid_file_path()
-    thread1 = Thread(target=send_file, args=(sock, file_path))
-    thread2 = Thread(target=show_process_bar)
-    thread1.start()
-    threads = (thread1, thread2)
+    address = input("请输入服务器IPv4地址:")
+    try:
+        port = int(input("请输入端口："))
+        server_address = (address, port)
+        sock.connect(server_address)
+        # 创建两个线程，分别执行发送文件和显示进度条任务
+        file_path = get_valid_file_path()
+        thread1 = Thread(target=send_file, args=(sock, file_path))
+        thread2 = Thread(target=show_process_bar)
+        thread1.start()
+        threads = (thread1, thread2)
 
-    while wait == "":
-        pass
+        while wait == "":
+            pass
 
-    thread2.start()
+        thread2.start()
 
-    for i in threads:
-        i.join()
-    # 关闭套接字
-    sock.close()
+        for i in threads:
+            i.join()
+        # 关闭套接字
+        sock.close()
+    except ValueError:
+        print("端口号必须为整数")
