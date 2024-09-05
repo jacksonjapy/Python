@@ -1,5 +1,5 @@
 #   -*- coding: utf-8 -*-
-# !/usr/bin/env python3.10
+# !/usr/bin/python3
 
 from ftplib import FTP, error_perm
 from socket import timeout
